@@ -9,8 +9,11 @@ public class ArrayStorage {
 
     void clear() {
         int i;
-        for (i = 0; i < size; i++) ;
-        storage[i] = null;
+        for (i = 0; i < storage.length; i++) {
+            if (storage[i] != null) {
+                storage[i] = null;
+            }
+        }
     }
 
     void save(Resume r) {
