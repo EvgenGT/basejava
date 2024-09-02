@@ -1,7 +1,6 @@
-package com.urise.webapp.storage;
+package ru.javawebinar.basejava.storage;
 
-import com.urise.webapp.model.Resume;
-
+import ru.javawebinar.basejava.model.Resume;
 import java.util.Arrays;
 
 /**
@@ -19,21 +18,18 @@ public class ArrayStorage {
             }
         }
     }
-
     public void update(Resume r) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(r.getUuid())) {
-                System.out.println("Резюме с uuid " + r.getUuid() + "добавлено");
+        for (int i = 0; i < size; i++){
+            if(storage[i].getUuid().equals(r.getUuid())) {
                 return;
             }
         }
-        System.out.println("ERROR. Резюме с uuid " + r.getUuid() + "не найдено. ОБновление не выполнено");
+        System.out.println("ERROR");
     }
 
     public void save(Resume r) {
         if (size < storage.length) {
             storage[size++] = r;
-            System.out.println("Резюме сохранено. Новый размер хранилища: " + size);
         } else {
             System.out.println("Хранилище полно");
         }
@@ -42,27 +38,21 @@ public class ArrayStorage {
     public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
             if (uuid != null && uuid.equals(storage[i].getUuid())) {
-                System.out.println("найден совпадающий uuid на индексе: " + i);
                 return storage[i];
             }
-
         }
-        System.out.println("Совпадающий uuid не найден");
         return null;
     }
 
     public void delete(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
-                System.out.println("Найден совпадающий uuid на индексе: " + i);
                 storage[i] = storage[size - 1];
                 storage[size - 1] = null;
                 size--;
-                System.out.println("Резюме удалено. Новый размер хранилища: " + size);
                 break;
             }
         }
-        System.out.println("Совпадающий uuid не найден");
     }
 
     /**
