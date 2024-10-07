@@ -19,6 +19,7 @@ public class ArrayStorage extends AbstractArrayStorage{
             }
         }
     }
+
     public void update(Resume r) {
         for (int i = 0; i < size; i++){
             if(storage[i].getUuid().equals(r.getUuid())) {

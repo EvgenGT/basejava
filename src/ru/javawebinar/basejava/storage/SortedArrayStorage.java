@@ -4,11 +4,15 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.Arrays;
 
-public class SortedArrayStorage extends AbstractArrayStorage{
+public class SortedArrayStorage extends AbstractArrayStorage {
 
-    @Override
+   @Override
     public void clear() {
-
+        for (int i = 0; i < size; i++) {
+            storage[i] = null;
+        }
+        size = 0;
+        System.out.println("Хранилище очищено");
     }
 
     @Override
