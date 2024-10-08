@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-   @Override
+    @Override
     public void clear() {
         for (int i = 0; i < size; i++) {
             storage[i] = null;
@@ -17,7 +17,16 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void update(Resume r) {
+        int index = Arrays.binarySearch(storage, 0, size, r);
 
+        if (index >= 0) {
+            // Резюме найдено, обновляем его
+            storage[index] = r;
+            System.out.println("Resume updated: " + r.getUuid());
+        } else {
+            // Если резюме не найдено, выводим сообщение об ошибке
+            System.out.println("ERROR: Resume not found for UUID: " + r.getUuid());
+        }
     }
 
     @Override
