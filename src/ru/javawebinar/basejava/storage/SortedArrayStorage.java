@@ -20,18 +20,32 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         int index = Arrays.binarySearch(storage, 0, size, r);
 
         if (index >= 0) {
-            // Резюме найдено, обновляем его
             storage[index] = r;
             System.out.println("Resume updated: " + r.getUuid());
         } else {
-            // Если резюме не найдено, выводим сообщение об ошибке
             System.out.println("ERROR: Resume not found for UUID: " + r.getUuid());
         }
     }
 
     @Override
     public void save(Resume r) {
+        int index = Arrays.binarySearch(storage, 0, size, r);
 
+        if (index >= 0) {
+            System.out.println("ERROR: Resume already exists with UUID: " + r.getUuid());
+            return;
+        }
+
+        int insertIndex = -index - 1;
+
+        if (size >= storage.length) {
+            System.out.println("ERROR: Storage is full, can't save the resume.");
+            return;
+        }
+        System.arraycopy(storage, insertIndex, storage, insertIndex + 1, size - insertIndex);
+        storage[insertIndex] = r;
+        size++;
+        System.out.println("Resume saved: " + r.getUuid());
     }
 
     @Override
