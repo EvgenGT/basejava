@@ -21,9 +21,9 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
         if (index >= 0) {
             storage[index] = r;
-            System.out.println("Resume updated: " + r.getUuid());
+            System.out.println("Резюме обновлено: " + r.getUuid());
         } else {
-            System.out.println("ERROR: Resume not found for UUID: " + r.getUuid());
+            System.out.println("Ошибка: Резюме с данным UUID не найдено: " + r.getUuid());
         }
     }
 
@@ -32,25 +32,36 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         int index = Arrays.binarySearch(storage, 0, size, r);
 
         if (index >= 0) {
-            System.out.println("ERROR: Resume already exists with UUID: " + r.getUuid());
+            System.out.println("Ошибка: Резюме с данным UUID уже существует: " + r.getUuid());
             return;
         }
 
         int insertIndex = -index - 1;
 
         if (size >= storage.length) {
-            System.out.println("ERROR: Storage is full, can't save the resume.");
+            System.out.println("Ошибка: Хранилище заполнено. Невозможно сохранить резюме.");
             return;
         }
         System.arraycopy(storage, insertIndex, storage, insertIndex + 1, size - insertIndex);
         storage[insertIndex] = r;
         size++;
-        System.out.println("Resume saved: " + r.getUuid());
+        System.out.println("Резюме сохранено: " + r.getUuid());
     }
 
     @Override
     public void delete(String uuid) {
+        Resume searchKey = new Resume();
+        searchKey.setUuid(uuid);
+        int index = Arrays.binarySearch(storage, 0, size, searchKey);
 
+        if (index >= 0) {
+            storage[index] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+            System.out.println("Резюме удалено: " + searchKey);
+        } else {
+            System.out.println("Ошибка. Резюме с данным UUID не найдено" + searchKey);
+        }
     }
 
     @Override
