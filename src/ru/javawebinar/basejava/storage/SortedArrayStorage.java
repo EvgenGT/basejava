@@ -60,7 +60,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             size--;
             System.out.println("Резюме удалено: " + searchKey);
         } else {
-            System.out.println("Ошибка. Резюме с данным UUID не найдено" + searchKey);
+            System.out.println("Ошибка. Резюме с данным UUID не найдено " + searchKey);
         }
     }
 
