@@ -2,38 +2,22 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import java.util.Arrays;
-
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage extends AbstractArrayStorage{
+public class ArrayStorage extends AbstractArrayStorage {
     Resume[] storage = new Resume[10000];
     int size = 0;
 
-    public void clear() {
-        int i;
-        for (i = 0; i < storage.length; i++) {
-            if (storage[i] != null) {
-                storage[i] = null;
-            }
-        }
-    }
-
-    public void update(Resume r) {
-        for (int i = 0; i < size; i++){
-            if(storage[i].getUuid().equals(r.getUuid())) {
-                return;
-            }
-        }
-        System.out.println("ERROR");
-    }
 
     public void save(Resume r) {
-        if (size < storage.length) {
-            storage[size++] = r;
+        int index = getIndex(r.getUuid());
+        if (index >= 0) {
+            System.out.println("Резюме " + r.getUuid() + " уже существует");
+        } else if (size == STORAGE_LIMIT) {
+            System.out.println("Хранилище заполнено");
         } else {
-            System.out.println("Хранилище полно");
+            storage[size++] = r;
         }
     }
 
@@ -66,13 +50,6 @@ public class ArrayStorage extends AbstractArrayStorage{
         }
     }
 
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
-    }
 
     public int size() {
         return size;
