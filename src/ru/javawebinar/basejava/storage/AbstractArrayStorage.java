@@ -63,10 +63,6 @@ public abstract class AbstractArrayStorage implements Storage {
         }
     }
 
-    protected abstract void fillDeletedElement(int index);
-
-    protected abstract void insertElement(Resume r, int index);
-
     public Resume get(String uuid) {
         int index = getIndex(uuid);
         if (index < 0) {
@@ -75,6 +71,10 @@ public abstract class AbstractArrayStorage implements Storage {
         }
         return storage[index];
     }
+
+    protected abstract void fillDeletedElement(int index);
+
+    protected abstract void insertElement(Resume r, int index);
 
     protected abstract int getIndex(String uuid);
 }
