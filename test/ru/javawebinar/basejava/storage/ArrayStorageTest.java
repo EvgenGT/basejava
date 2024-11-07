@@ -4,6 +4,10 @@ import org.junit.jupiter.api.Test;
 
 public class ArrayStorageTest extends AbstractArrayStorageTest {
 
+    public ArrayStorageTest(Storage storage) {
+        super(storage);
+    }
+
     @Test
     void fillDeletedElement() {
     }

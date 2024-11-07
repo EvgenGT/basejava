@@ -8,8 +8,12 @@ import ru.javawebinar.basejava.model.Resume;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public abstract class AbstractArrayStorageTest {
+public class AbstractArrayStorageTest {
     private Storage storage;
+
+    protected AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
+    }
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -50,7 +54,7 @@ public abstract class AbstractArrayStorageTest {
         Resume newResume = new Resume();
         newResume.setUuid(UUID_1);
         storage.update(newResume);
-        assertEquals(3, storage.size(), "Размер хранилища должен составлять 3 после обновления резюма.");
+        assertEquals(3, storage.size(), "Размер хранилища должен составлять 3 после обновления резюме.");
     }
 
     @Test
