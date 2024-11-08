@@ -6,10 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import ru.javawebinar.basejava.model.Resume;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class AbstractArrayStorageTest {
-    private Storage storage;
+    protected Storage storage;
 
     protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
@@ -21,9 +22,8 @@ public class AbstractArrayStorageTest {
 
     @BeforeEach
     void setUp() {
-        storage = new ArrayStorage(); // Инициализация конкретного хранилища
+        storage.clear();
 
-        // Создаём и сохраняем резюме, которые можно использовать во всех тестах
         Resume resume1 = new Resume();
         Resume resume2 = new Resume();
         Resume resume3 = new Resume();
@@ -91,5 +91,4 @@ public class AbstractArrayStorageTest {
         assertEquals(UUID_1, resume.getUuid(), "Резюме должно иметь UUID = uuid1.");
     }
 }
-
 
