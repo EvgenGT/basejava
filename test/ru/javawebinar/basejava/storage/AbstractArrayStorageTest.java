@@ -1,27 +1,23 @@
 package ru.javawebinar.basejava.storage;
 
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
-
 import ru.javawebinar.basejava.model.Resume;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-public class AbstractArrayStorageTest {
+public abstract class AbstractArrayStorageTest {
     protected Storage storage;
-
-    protected AbstractArrayStorageTest(Storage storage) {
-        this.storage = storage;
-    }
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
 
+    public AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
+    }
+
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         storage.clear();
 
         Resume resume1 = new Resume();
@@ -35,15 +31,16 @@ public class AbstractArrayStorageTest {
         storage.save(resume1);
         storage.save(resume2);
         storage.save(resume3);
+
     }
 
     @Test
-    void size() {
+    public void size() {
         assertEquals(3, storage.size(), "Размер хранилища должен составлять 3 после добавления 3 резюме.");
     }
 
     @Test
-    void clear() {
+    public void clear() {
         storage.clear();
         assertEquals(0, storage.size(), "Размер хранилища должен составлять 0 после очистки.");
     }
