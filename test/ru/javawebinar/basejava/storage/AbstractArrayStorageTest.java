@@ -2,6 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -79,6 +80,15 @@ public abstract class AbstractArrayStorageTest {
         assertNotNull(newResume.uuid, "UUID не должен быть null.");
         assertFalse(newResume.uuid.isEmpty(), "UUID не должен быть пустой строкой.");
 
+    }
+
+    @Test
+    void getNotExist() {
+        assertThrows(NotExistStorageException.class, this::testGetStorage);
+    }
+
+    void testGetStorage() {
+        storage.get("dummy");
     }
 }
 
