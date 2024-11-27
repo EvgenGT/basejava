@@ -3,6 +3,7 @@ package ru.javawebinar.basejava.storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
+import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,22 +26,21 @@ public abstract class AbstractArrayStorageTest {
         storage.save(resume1);
         storage.save(resume2);
         storage.save(resume3);
-
     }
 
     @Test
     public void size() {
-        assertEquals(3, storage.size(), "Размер хранилища должен составлять 3 после добавления 3 резюме.");
+        assertEquals(3, storage.size(), "Размер хранилища должен составлять 3 (три) резюме.");
     }
 
     @Test
     public void clear() {
         storage.clear();
-        assertEquals(0, storage.size(), "Размер хранилища должен составлять 0 после очистки.");
+        assertEquals(0, storage.size(), "Размер хранилища должен составлять 0 (ноль) после очистки.");
     }
 
     @Test
-    void update() {
+    public void update() {
 
         Resume newResume = new Resume();
         assertNotNull(newResume.uuid, "UUID не должен быть null.");
@@ -49,7 +49,7 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    void getAll() {
+    public void getAll() {
 
         Resume newResume = new Resume();
         assertNotNull(newResume.uuid, "UUID не должен быть null.");
@@ -58,15 +58,29 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    void save() {
+    public void save() {
 
         Resume newResume = new Resume();
         storage.save(newResume);
-        assertEquals(4, storage.size(), "Размер хранилища должен составлять 4 после добавления нового резюме.");
+        assertEquals(4, storage.size(), "Размер хранилища должен составлять 4 (четыре) после добавления нового резюме.");
     }
 
     @Test
-    void delete() {
+    public void delete() {
+
+        Resume resume4 = new Resume();
+        storage.save(resume4);
+
+        String uuidToDelete = resume4.getUuid();
+        storage.delete(uuidToDelete);
+
+        assertEquals(3, storage.size(), "Размер хранилища должен уменьшиться на 1 после удаления");
+
+    }
+
+    @Test
+    public void get() {
+
         Resume newResume = new Resume();
         assertNotNull(newResume.uuid, "UUID не должен быть null.");
         assertFalse(newResume.uuid.isEmpty(), "UUID не должен быть пустой строкой.");
@@ -74,21 +88,26 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    void get() {
-
-        Resume newResume = new Resume();
-        assertNotNull(newResume.uuid, "UUID не должен быть null.");
-        assertFalse(newResume.uuid.isEmpty(), "UUID не должен быть пустой строкой.");
-
-    }
-
-    @Test
-    void getNotExist() {
+    public void getNotExist() {
         assertThrows(NotExistStorageException.class, this::testGetStorage);
     }
 
     void testGetStorage() {
         storage.get("dummy");
     }
+
+    @Test
+    public void storageOverflow() {
+        for (int i = 0; i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
+            storage.save(new Resume());
+        }
+        try {
+            storage.save(new Resume());
+            fail("Ожидалось исключение StorageException, но оно не было брошено.");
+        } catch (StorageException e) {
+            assertEquals("Хранилище заполнено", e.getMessage());
+        }
+    }
 }
+
 
