@@ -41,19 +41,12 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void update() {
-
-        Resume newResume = new Resume();
-        assertNotNull(newResume.uuid, "UUID не должен быть null.");
-        assertFalse(newResume.uuid.isEmpty(), "UUID не должен быть пустой строкой.");
-
+        assertEquals(3, storage.size(), "Размер хранилища должен составлять 3 (три) резюме.");
     }
 
     @Test
     public void getAll() {
-
-        Resume newResume = new Resume();
-        assertNotNull(newResume.uuid, "UUID не должен быть null.");
-        assertFalse(newResume.uuid.isEmpty(), "UUID не должен быть пустой строкой.");
+        assertEquals(3, storage.getAll().length, "Размер хранилища должен составлять 3 (три) резюме.");
 
     }
 
@@ -80,10 +73,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void get() {
-
-        Resume newResume = new Resume();
-        assertNotNull(newResume.uuid, "UUID не должен быть null.");
-        assertFalse(newResume.uuid.isEmpty(), "UUID не должен быть пустой строкой.");
+        assertEquals(3, storage.size(), "Размер хранилища должен составлять 3 (три) резюме.");
 
     }
 
