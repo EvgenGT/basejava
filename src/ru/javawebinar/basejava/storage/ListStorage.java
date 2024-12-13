@@ -2,7 +2,8 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-public class ListStorage extends AbstractStorage{
+public class ListStorage extends AbstractStorage {
+
     @Override
     public void update(Resume r) {
 
