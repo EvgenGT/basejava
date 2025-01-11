@@ -2,11 +2,12 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.model.Resume;
 
-public class ListStorage extends AbstractStorage {
+import java.util.ArrayList;
 
-    @Override
-    public void update(Resume r) {
+public abstract class ListStorage extends AbstractStorage {
 
+    public static boolean update(ArrayList<String> resumes, String resumeToCheck) {
+        return resumes.contains(resumeToCheck);
     }
 
     @Override

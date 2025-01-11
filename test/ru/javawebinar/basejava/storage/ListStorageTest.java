@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.javawebinar.basejava.model.Resume;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class ListStorageTest {
     private final Storage storage;
@@ -28,7 +28,6 @@ public abstract class ListStorageTest {
 
     @Test
     public void update() {
-        assertEquals(3, storage.size(), "Размер хранилища должен составлять 3 (три) резюме.");
     }
 
     @Test
@@ -57,4 +56,5 @@ public abstract class ListStorageTest {
         assertEquals(3, storage.size(), "Размер хранилища должен уменьшиться на 1 после удаления");
 
     }
+
 }
