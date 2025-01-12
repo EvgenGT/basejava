@@ -63,7 +63,6 @@ public abstract class AbstractArrayStorageTest {
 
         Resume resume4 = new Resume();
         storage.save(resume4);
-
         String uuidToDelete = resume4.getUuid();
         storage.delete(uuidToDelete);
 
